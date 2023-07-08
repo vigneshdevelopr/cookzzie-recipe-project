@@ -56,7 +56,7 @@ try {
     }
     //generate Token:
     const genToken = jwt.sign({id: user._id},process.env.SecretKey);
-    return res.status(200).json({token: genToken, userID: user._id});
+    return res.status(200).json({token: genToken, userID: user._id, user:user.username});
 } catch (error) {
     return res.status(500).json('Internal Server Error during Login process')
 }
