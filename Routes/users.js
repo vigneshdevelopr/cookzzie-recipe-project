@@ -1,7 +1,7 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import bcrpyt from 'bcrypt';
-import { userModel } from '../../source/Models/users.js';
+import { userModel } from '../Models/users.js';
 
 const router = express.Router();
 
