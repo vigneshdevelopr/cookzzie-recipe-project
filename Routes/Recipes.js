@@ -64,17 +64,44 @@ router.get('/saved/id/:userId', async(req,res)=>{
 //         return res.status(500).json('Internal Server Error');
 //     }
 // })
+// router.get('/savedRecipes/:userId', async (req, res) => {
+//     try {
+//       const user = await userModel.findById(req.params.userId);
+//       const savedRecipeIds =user.savedRecipes.map(recipe => recipe._id);
+//       const savedRecipes = await RecipeModel.find({ _id: { $in: savedRecipeIds } });
+//       return res.status(200).json({ savedRecipes });
+//     } catch (error) {
+//       console.log(error);
+//       return res.status(500).json('Internal Server Error');
+//     }
+//   });
+
 router.get('/savedRecipes/:userId', async (req, res) => {
     try {
       const user = await userModel.findById(req.params.userId);
-      const savedRecipeIds = user.savedRecipes.map(recipe => recipe._id);
-      const savedRecipes = await RecipeModel.find({ _id: { $in: savedRecipeIds } });
+      const savedRecipes = user.savedRecipes;
       return res.status(200).json({ savedRecipes });
     } catch (error) {
       console.log(error);
       return res.status(500).json('Internal Server Error');
     }
   });
+
+// // Get saved recipes
+// router.get("/savedRecipes/:userId", async (req, res) => {
+//     try {
+//       const user = await userModel.findById(req.params.userId);
+//       const savedRecipes = await RecipeModel.find({
+//         _id: { $in: user.savedRecipes },
+//       });
+  
+//       console.log(savedRecipes);
+//       res.status(201).json({ savedRecipes });
+//     } catch (err) {
+//       console.log(err);
+//       res.status(500).json(err);
+//     }
+//   });
   
 
 
