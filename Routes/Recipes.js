@@ -45,36 +45,37 @@ router.put('/saved', async(req,res)=>{
 router.get('/saved/id/:userId', async(req,res)=>{
     try {
         const user = await userModel.findById(req.params.userId);
-        return res.status(200).json({savedRecipes: user})
+        const savedRecipes = user.savedRecipes; // Assuming savedRecipes is an array of recipe objects
+        return res.status(200).json(savedRecipes);
     } catch (error) {
         return res.status(500).json('Internal Server Error');
         console.log(error.message)
     }
 })
 
-// router.get('/savedRecipes/:userId', async(req,res)=>{
+// router.get('/saved/:userId', async(req,res)=>{
 //     try {
 //         const user = await userModel.findById(req.params.userId);
 //         const savedRecipes = await RecipeModel.find({
 //             _id: {$ne: user.savedRecipes}
 //         })
-//         return res.status(200).json({savedRecipes})
+//         return res.status(200).json(savedRecipes)
 //     } catch (error) {
 //         console.log(error)
 //         return res.status(500).json('Internal Server Error');
 //     }
 // })
-// router.get('/savedRecipes/:userId', async (req, res) => {
-//     try {
-//       const user = await userModel.findById(req.params.userId);
-//       const savedRecipeIds =user.savedRecipes.map(recipe => recipe._id);
-//       const savedRecipes = await RecipeModel.find({ _id: { $in: savedRecipeIds } });
-//       return res.status(200).json({ savedRecipes });
-//     } catch (error) {
-//       console.log(error);
-//       return res.status(500).json('Internal Server Error');
-//     }
-//   });
+router.get('/saved/:userId', async (req, res) => {
+    try {
+      const user = await userModel.findById(req.params.userId);
+      const savedRecipeIds =user.savedRecipes.map(recipe => recipe._id);
+      const savedRecipes = await RecipeModel.find({ _id: { $in: savedRecipeIds } });
+      return res.status(200).json( savedRecipes );
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json('Internal Server Error');
+    }
+  });
 
 router.get('/savedRecipes/:userId', async (req, res) => {
     try {
