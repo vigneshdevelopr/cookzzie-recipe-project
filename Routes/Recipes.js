@@ -106,4 +106,25 @@ router.get('/savedRecipes/:userId', async (req, res) => {
   
 
 
+router.delete('/savedRecipes/:userId/:productId',async(req,res)=>{
+  try {
+  const userId = req.params.userId;
+  const productId = req.params.productId;
+  
+  const user = await userModel.findById(userId);
+
+  if(!user){
+      return res.status(404).json({message: 'user not found'})
+  }
+
+  user.savedRecipes=user.savedRecipes.filter((product)=>product._id.toString() !== productId);
+  await user.save();
+  return res.status(200).json({message: 'Product removed from your cart'})
+  } catch (error) {
+  console.log(error)
+  return res.status(500).json({message: 'Internal Server Error'}) 
+  }
+})
+
+
 export const recipeRouter = router;
