@@ -10,7 +10,7 @@ dotenv.config();
 
 
 const app = express();
-const PORT = process.env.port
+const port = process.env.port||5000
 
 //middleware
 app.use(cors());
@@ -26,7 +26,8 @@ app.get('/',(req,res)=>{
     return res.status(200).send("The Backend Server Database for Cookzzie Recipe Application")
 })
 
-//listening:
-app.listen(PORT,'0.0.0.0', ()=>{
-    console.log(`Server listening on ${PORT}`);
-})
+
+// Listen on `port` and 0.0.0.0
+app.listen(port, "0.0.0.0", function () {
+console.log(`your server will connected to port: ${port}`)
+});
