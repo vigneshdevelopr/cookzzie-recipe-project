@@ -23,7 +23,7 @@ app.use('/recipes', recipeRouter);
 createConnection();
 
 app.get('/',(req,res)=>{
-    return res.status(200).json({message:"The Backend Server Database for Cookzzie Recipe Application"})
+    return res.status(200).send("The Backend Server Database for Cookzzie Recipe Application")
 })
 
 //listening:
